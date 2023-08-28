@@ -1,9 +1,47 @@
+<!DOCTYPE html>
 <html>
-   <head>
-       <title>FastAPI HTML</title>
-        </head>
-        <body>
-            <h1>Welcome to FastAPI HTML</h1>
-            <p>This is the content from FastAPI.</p>
-        </body>
+<head>
+    <title>FastAPI HTML</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- PROCESS BUTTON -->
+    <h1>Welcome to FastAPI HTML</h1>
+    <p>This is the content from FastAPI.</p>
+    <button id="processButton">Process Data</button>
+    <script>
+        $(document).ready(function() {
+            $("#processButton").click(function() {
+                $.get("/process", function(data) {
+                    console.log("Processed:", data);
+                    // Do something with the processed data if needed
+                });
+            });
+        });
+    </script>
+
+    <!--DROP DOWN BUTTON -->
+    <label for="dropdown">Select an option:</label>
+    <select id="dropdown">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+    </select>
+
+    <button id="executeBtn">Execute</button>
+
+    <script>
+        const dropdown = document.getElementById('dropdown');
+        const executeBtn = document.getElementById('executeBtn');
+
+        executeBtn.addEventListener('click', async () => {
+            const selectedOption = dropdown.value;
+            // Fetch the URL associated with the selected option
+            const response = await fetch(`/execute_option?selected_option=${selectedOption}`);
+            const data = await response.json();
+            alert(data.message);
+        });
+    </script>
+</body>
 </html>
+
